@@ -1,24 +1,24 @@
 import { Module } from '@nestjs/common';
-import { Product } from './clients/client.entity';
-import { ProductService } from './clients/client.service';
-import { ProductController } from './clients/client.controller';
 import { AppController } from './app.controller';
 import { User } from './users/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersService } from './users/users.service';
 import * as dotenv from 'dotenv';
+import { ProductService } from './clients/client.service';
+import { ProductController } from './clients/client.controller';
+import { Product } from './clients/client.entity';
 dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DBHOST,
+      host: 'db',
       port: 5432,
       username: process.env.DBUSER,
       password: process.env.DBPASS,
-      database: process.env.DBNAME,
+      database: 'db',
       entities: [Product, User],
       synchronize: true,
     }),

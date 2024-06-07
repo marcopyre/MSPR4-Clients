@@ -33,3 +33,6 @@ jobs:
 
       - name: Run tests
         run: yarn build
+
+      - name: build docker
+        run: docker compose up
