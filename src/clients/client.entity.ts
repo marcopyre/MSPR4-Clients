@@ -7,10 +7,4 @@ export class Product {
 
   @Column()
   name: string;
-
-  @Column()
-  max: number;
-
-  @Column({ type: 'text', array: true })
-  membres: string[];
 }

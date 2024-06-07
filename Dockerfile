@@ -3,6 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install 
 COPY . .
-COPY .env.test .env 
+COPY .env.docker .env 
 RUN npm run build 
 CMD [ "npm", "run", "start:dev" ]
