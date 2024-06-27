@@ -3,6 +3,7 @@
 /node_modules
 /build
 /pgdata
+/clickhouse_data
 
 # Logs
 logs
