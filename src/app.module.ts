@@ -8,6 +8,7 @@ import * as dotenv from 'dotenv';
 import { ProductService } from './clients/client.service';
 import { ProductController } from './clients/client.controller';
 import { Product } from './clients/client.entity';
+import { UserController } from './users/users.controller';
 dotenv.config();
 
 @Module({
@@ -26,6 +27,6 @@ dotenv.config();
     AuthModule,
   ],
   providers: [ProductService, UsersService],
-  controllers: [ProductController, AppController],
+  controllers: [ProductController, AppController, UserController],
 })
 export class AppModule {}
