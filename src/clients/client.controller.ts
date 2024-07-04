@@ -23,6 +23,7 @@ export class ProductController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   updateProduct(@Body() dto: ProductDto, @Param('id') id: number) {
     return this.productService.updateProduct(dto, id);
   }
