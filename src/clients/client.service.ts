@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './client.entity';
 import { ProductDto } from './client.dto';
-import { ProducerService } from 'src/messaging/producer.service';
+import { ProducerService } from '../messaging/producer.service';
 
 @Injectable()
 export class ProductService {
