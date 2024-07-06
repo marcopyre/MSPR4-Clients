@@ -35,6 +35,7 @@ dotenv.config();
       },
     }),
     AuthModule,
+    ProducerService
   ],
   providers: [
     ProductService,

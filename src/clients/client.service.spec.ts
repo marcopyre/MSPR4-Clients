@@ -3,7 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductService } from './client.service';
 import { Product } from './client.entity';
 import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
+
+jest.mock('../messaging/producer.service');
 
 describe('ProductService', () => {
   let app: INestApplication;
@@ -18,7 +21,7 @@ describe('ProductService', () => {
 
     app = module.createNestApplication();
     service = module.get<ProductService>(ProductService);
-    repository = module.get<Repository<Product>>('ProductRepository');
+    repository = module.get<Repository<Product>>(getRepositoryToken(Product));
     await app.init();
   });
 
@@ -27,7 +30,7 @@ describe('ProductService', () => {
   });
 
   beforeEach(async () => {
-    product = await repository.create({
+    product = repository.create({
       name: 'Test Product',
     });
     await repository.save(product);
@@ -41,8 +44,6 @@ describe('ProductService', () => {
     it('should create a product', async () => {
       const newProduct = await service.createProduct({
         name: 'New Product',
-        max: 5,
-        membres: [],
       });
 
       expect(newProduct).toBeDefined();
@@ -66,7 +67,7 @@ describe('ProductService', () => {
     });
   });
 
-  describe('getAllProducts', () => {
+  describe('getAllPolls', () => {
     it('should return an array of products', async () => {
       const products = await service.getAllPolls();
 

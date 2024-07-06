@@ -7,6 +7,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import { ProducerService } from '../messaging/producer.service';
 dotenv.config();
 
 describe('ProductService', () => {
@@ -30,7 +31,7 @@ describe('ProductService', () => {
         }),
         TypeOrmModule.forFeature([Product]),
       ],
-      providers: [ProductService],
+      providers: [ProductService, ProducerService],
     }).compile();
 
     service = module.get<ProductService>(ProductService);
@@ -48,8 +49,6 @@ describe('ProductService', () => {
 
   const productDto: ProductDto = {
     name: 'Test Product',
-    max: 10,
-    membres: ['User 1', 'User 2'],
   };
 
   it('should create a product', async () => {
