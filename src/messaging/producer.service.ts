@@ -6,10 +6,10 @@ import { Channel } from 'amqplib';
 export class ProducerService {
   private channelWrapper: ChannelWrapper;
   constructor() {
-    const connection = amqp.connect(['amqp://localhost']);
+    const connection = amqp.connect(['amqp://rabbit:root@rabbitmq']);
     this.channelWrapper = connection.createChannel({
       setup: (channel: Channel) => {
-        return channel.assertQueue('emailQueue', { durable: true });
+        return channel.assertQueue('clientQueue', { durable: true });
       },
     });
   }
@@ -17,7 +17,7 @@ export class ProducerService {
   async addToEmailQueue(mail: any) {
     try {
       await this.channelWrapper.sendToQueue(
-        'emailQueue',
+        'clientQueue',
         Buffer.from(JSON.stringify(mail)),
         {
           persistent: true,

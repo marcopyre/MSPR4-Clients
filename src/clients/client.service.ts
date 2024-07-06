@@ -4,13 +4,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './client.entity';
 import { ProductDto } from './client.dto';
+import { ProducerService } from 'src/messaging/producer.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) {}
+    private producerService: ProducerService,
+  ) { }
 
   async createProduct(dto: ProductDto): Promise<Product> {
     const product = this.productRepository.create(dto);
@@ -29,6 +31,7 @@ export class ProductService {
   }
 
   async getAllPolls(): Promise<Product[]> {
+    this.producerService.addToEmailQueue('hello')
     return this.productRepository.find();
   }
 
