@@ -7,6 +7,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
 import { ProducerService } from '../messaging/producer.service';
 
+jest.mock('../messaging/producer.service');
+
 describe('ProductService', () => {
   let app: INestApplication;
   let service: ProductService;
