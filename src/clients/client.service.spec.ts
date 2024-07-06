@@ -5,7 +5,6 @@ import { Product } from './client.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
-import { ProducerService } from '../messaging/producer.service';
 
 jest.mock('../messaging/producer.service');
 
