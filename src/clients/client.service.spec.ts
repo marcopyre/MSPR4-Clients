@@ -5,11 +5,13 @@ import { Product } from './client.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
+import { ProducerService } from '../messaging/producer.service';
 
 describe('ProductService', () => {
   let app: INestApplication;
   let service: ProductService;
   let repository: Repository<Product>;
+  let producerService: ProducerService;
   let product: Product;
 
   beforeAll(async () => {
@@ -20,6 +22,7 @@ describe('ProductService', () => {
     app = module.createNestApplication();
     service = module.get<ProductService>(ProductService);
     repository = module.get<Repository<Product>>(getRepositoryToken(Product));
+    producerService = module.get<ProducerService>(ProducerService);
     await app.init();
   });
 
