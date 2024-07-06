@@ -41,8 +41,6 @@ describe('ProductService', () => {
     it('should create a product', async () => {
       const newProduct = await service.createProduct({
         name: 'New Product',
-        max: 5,
-        membres: [],
       });
 
       expect(newProduct).toBeDefined();
