@@ -6,6 +6,12 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
 import { ProducerService } from 'src/messaging/producer.service';
+import { MetricsService } from 'src/metrics/metrics.service';
+import { UsersService } from 'src/users/users.service';
+import { ProductController } from './client.controller';
+import { AppController } from 'src/app.controller';
+import { UserController } from 'src/users/users.controller';
+import { AuthModule } from 'src/auth/auth.module';
 
 describe('ProductService', () => {
   let app: INestApplication;
@@ -15,15 +21,18 @@ describe('ProductService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, ProducerService],
+      imports: [AuthModule, ProducerService],
       providers: [
         ProductService,
+        UsersService,
+        MetricsService,
         ProducerService,
         {
           provide: getRepositoryToken(Product),
           useClass: Repository,
         },
       ],
+      controllers: [ProductController, AppController, UserController],
     }).compile();
 
     app = module.createNestApplication();
