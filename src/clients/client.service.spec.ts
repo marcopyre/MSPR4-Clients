@@ -4,15 +4,13 @@ import { ProductService } from './client.service';
 import { Product } from './client.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ProducerService } from 'src/messaging/producer.service';
 
 describe('ProductService', () => {
-  let app: INestApplication;
   let service: ProductService;
   let repository: Repository<Product>;
   let product: Product;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProductService,
@@ -20,33 +18,15 @@ describe('ProductService', () => {
           provide: getRepositoryToken(Product),
           useClass: Repository,
         },
-        {
-          provide: ProducerService,
-          useValue: {
-          },
-        },
       ],
     }).compile();
 
-    app = module.createNestApplication();
     service = module.get<ProductService>(ProductService);
     repository = module.get<Repository<Product>>(getRepositoryToken(Product));
-    await app.init();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeEach(async () => {
-    product = repository.create({
-      name: 'Test Product',
-    });
-    await repository.save(product);
-  });
-
-  afterEach(async () => {
-    await repository.clear();
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 
   describe('createProduct', () => {
