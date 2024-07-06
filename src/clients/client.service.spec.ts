@@ -4,7 +4,7 @@ import { ProductService } from './client.service';
 import { Product } from './client.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { AppModule } from '../app.module';
+import { ProducerService } from 'src/messaging/producer.service';
 
 describe('ProductService', () => {
   let app: INestApplication;
@@ -14,7 +14,18 @@ describe('ProductService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      providers: [
+        ProductService,
+        {
+          provide: getRepositoryToken(Product),
+          useClass: Repository,
+        },
+        {
+          provide: ProducerService,
+          useValue: {
+          },
+        },
+      ],
     }).compile();
 
     app = module.createNestApplication();
