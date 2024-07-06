@@ -31,11 +31,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run tests
+      - name: Run build
         run: yarn build
 
       - name: create network
-        run: docker network create -d bridge rabbitmq_network
-
-      - name: build docker
-        run: docker compose up
+        run: docker build -t app .
