@@ -7,7 +7,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
-import { ProducerService } from 'src/messaging/producer.service';
+import { ProducerService } from '../messaging/producer.service';
 dotenv.config();
 
 describe('ProductService', () => {
