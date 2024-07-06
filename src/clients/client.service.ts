@@ -16,6 +16,7 @@ export class ProductService {
 
   async createProduct(dto: ProductDto): Promise<Product> {
     const product = this.productRepository.create(dto);
+    console.log(product);
     return this.productRepository.save(product);
   }
 
@@ -31,11 +32,12 @@ export class ProductService {
   }
 
   async getAllPolls(): Promise<Product[]> {
-    this.producerService.addToEmailQueue('hello')
     return this.productRepository.find();
   }
 
   async deleteProduct(id: number) {
+    const product = await this.productRepository.findOneBy({ id });
+    this.producerService.addToMessageQueue(product.id)
     return await this.productRepository.delete(id);
   }
 }

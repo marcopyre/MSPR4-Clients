@@ -14,7 +14,7 @@ services:
       - prometheus
     networks:
       - rabbitmq_network
-  db:
+  db-clients:
     image: postgres
     restart: always
     environment:

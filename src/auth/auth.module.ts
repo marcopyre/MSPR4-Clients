@@ -15,10 +15,10 @@ dotenv.config();
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '24h' },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, AdminStrategy],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -14,7 +14,7 @@ export class ProducerService {
     });
   }
 
-  async addToEmailQueue(mail: any) {
+  async addToMessageQueue(mail: any) {
     try {
       await this.channelWrapper.sendToQueue(
         'clientQueue',
