@@ -58,7 +58,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test --passWithNoTests
+        run: yarn test --passWithNoTests --detectOpenHandles
       # - name: SonarCloud Scan
       #   uses: sonarsource/sonarcloud-github-action@master
       #   env:
