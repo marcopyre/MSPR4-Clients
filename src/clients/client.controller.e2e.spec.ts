@@ -7,6 +7,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import { ProducerService } from 'src/messaging/producer.service';
 dotenv.config();
 
 describe('ProductService', () => {
@@ -30,7 +31,7 @@ describe('ProductService', () => {
         }),
         TypeOrmModule.forFeature([Product]),
       ],
-      providers: [ProductService],
+      providers: [ProductService, ProducerService],
     }).compile();
 
     service = module.get<ProductService>(ProductService);
