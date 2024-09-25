@@ -1,18 +1,18 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductService } from './client.service';
-import { Product } from './client.entity';
+import { ClientService } from './client.service';
+import { Client } from './client.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from '../app.module';
 
 jest.mock('../messaging/producer.service');
 
-describe('ProductService', () => {
+describe('ClientService', () => {
   let app: INestApplication;
-  let service: ProductService;
-  let repository: Repository<Product>;
-  let product: Product;
+  let service: ClientService;
+  let repository: Repository<Client>;
+  let client: Client;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,8 +20,8 @@ describe('ProductService', () => {
     }).compile();
 
     app = module.createNestApplication();
-    service = module.get<ProductService>(ProductService);
-    repository = module.get<Repository<Product>>(getRepositoryToken(Product));
+    service = module.get<ClientService>(ClientService);
+    repository = module.get<Repository<Client>>(getRepositoryToken(Client));
     await app.init();
   });
 
@@ -30,58 +30,58 @@ describe('ProductService', () => {
   });
 
   beforeEach(async () => {
-    product = repository.create({
-      name: 'Test Product',
+    client = repository.create({
+      name: 'Test Client',
     });
-    await repository.save(product);
+    await repository.save(client);
   });
 
   afterEach(async () => {
     await repository.clear();
   });
 
-  describe('createProduct', () => {
-    it('should create a product', async () => {
-      const newProduct = await service.createProduct({
-        name: 'New Product',
+  describe('createClient', () => {
+    it('should create a client', async () => {
+      const newClient = await service.createClient({
+        name: 'New Client',
       });
 
-      expect(newProduct).toBeDefined();
-      expect(newProduct.id).toBeDefined();
-      expect(newProduct.name).toEqual('New Product');
+      expect(newClient).toBeDefined();
+      expect(newClient.id).toBeDefined();
+      expect(newClient.name).toEqual('New Client');
     });
   });
 
-  describe('updateProduct', () => {
-    it('should update a product', async () => {
-      const updatedProduct = await service.updateProduct(
+  describe('updateClient', () => {
+    it('should update a client', async () => {
+      const updatedClient = await service.updateClient(
         {
-          name: 'Updated Product',
+          name: 'Updated Client',
         },
-        product.id,
+        client.id,
       );
 
-      expect(updatedProduct).toBeDefined();
-      expect(updatedProduct.id).toEqual(product.id);
-      expect(updatedProduct.name).toEqual('Updated Product');
+      expect(updatedClient).toBeDefined();
+      expect(updatedClient.id).toEqual(client.id);
+      expect(updatedClient.name).toEqual('Updated Client');
     });
   });
 
   describe('getAllPolls', () => {
-    it('should return an array of products', async () => {
-      const products = await service.getAllPolls();
+    it('should return an array of clients', async () => {
+      const clients = await service.getAllPolls();
 
-      expect(products).toBeInstanceOf(Array);
-      expect(products.length).toBeGreaterThanOrEqual(1);
+      expect(clients).toBeInstancClienteOf(Array);
+      expect(clients.length).toBeGreaterThanOrEqual(1);
     });
   });
 
-  describe('deleteProduct', () => {
-    it('should delete a product', async () => {
-      await service.deleteProduct(product.id);
+  describe('deleteClient', () => {
+    it('should delete a client', async () => {
+      await service.deleteClient(client.id);
 
-      const deletedProduct = await repository.findOneBy({ id: product.id });
-      expect(deletedProduct).toBeNull();
+      const deletedClient = await repository.findOneBy({ id: client.id });
+      expect(deletedClient).toBeNull();
     });
   });
 });

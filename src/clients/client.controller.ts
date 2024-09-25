@@ -8,34 +8,34 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { ProductService } from './client.service';
-import { ProductDto } from './client.dto';
+import { ClientService } from './client.service';
+import { ClientDto } from './client.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('clients')
-export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+export class ClientController {
+  constructor(private readonly clientService: ClientService) {}
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  createProduct(@Body() dto: ProductDto) {
-    return this.productService.createProduct(dto);
+  createClient(@Body() dto: ClientDto) {
+    return this.clientService.createClient(dto);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  updateProduct(@Body() dto: ProductDto, @Param('id') id: number) {
-    return this.productService.updateProduct(dto, id);
+  updateClient(@Body() dto: ClientDto, @Param('id') id: number) {
+    return this.clientService.updateClient(dto, id);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  deleteProduct(@Param('id') id: number) {
-    return this.productService.deleteProduct(id);
+  deleteClient(@Param('id') id: number) {
+    return this.clientService.deleteClient(id);
   }
 
   @Get()
-  getAllProducts() {
-    return this.productService.getAllPolls();
+  getAllClients() {
+    return this.clientService.getAllPolls();
   }
 }

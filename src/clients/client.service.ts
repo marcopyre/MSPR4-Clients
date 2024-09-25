@@ -2,42 +2,42 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product } from './client.entity';
-import { ProductDto } from './client.dto';
+import { Client } from './client.entity';
+import { ClientDto } from './client.dto';
 import { ProducerService } from '../messaging/producer.service';
 
 @Injectable()
-export class ProductService {
+export class ClientService {
   constructor(
-    @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>,
+    @InjectRepository(Client)
+    private readonly clientRepository: Repository<Client>,
     private producerService: ProducerService,
-  ) { }
+  ) {}
 
-  async createProduct(dto: ProductDto): Promise<Product> {
-    const product = this.productRepository.create(dto);
-    console.log(product);
-    return this.productRepository.save(product);
+  async createClient(dto: ClientDto): Promise<Client> {
+    const client = this.clientRepository.create(dto);
+    console.log(client);
+    return this.clientRepository.save(client);
   }
 
-  async updateProduct(dto: ProductDto, id: number): Promise<Product> {
-    const product = await this.productRepository.findOneBy({ id });
+  async updateClient(dto: ClientDto, id: number): Promise<Client> {
+    const client = await this.clientRepository.findOneBy({ id });
 
-    const updatedProduct = {
+    const updatedClient = {
       ...dto,
-      id: product.id,
+      id: client.id,
     };
 
-    return this.productRepository.save(updatedProduct);
+    return this.clientRepository.save(updatedClient);
   }
 
-  async getAllPolls(): Promise<Product[]> {
-    return this.productRepository.find();
+  async getAllPolls(): Promise<Client[]> {
+    return this.clientRepository.find();
   }
 
-  async deleteProduct(id: number) {
-    const product = await this.productRepository.findOneBy({ id });
-    this.producerService.addToMessageQueue(product.id)
-    return await this.productRepository.delete(id);
+  async deleteClient(id: number) {
+    const client = await this.clientRepository.findOneBy({ id });
+    this.producerService.addToMessageQueue(client.id);
+    return await this.clientRepository.delete(id);
   }
 }
