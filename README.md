@@ -1,73 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Connexion à l'application:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Création de l’utilisateur avant la première connexion:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Post a l’adresse http://<ip/adresse>:3007/user des informations au format JSON dans le body
 
-## Description
+contenant:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+{
+    “username”: ”<your username>”,
+    “password”: ”<your password>”
+}
 
-## Installation
 
-```bash
-$ npm install
-```
+CLIENT:
+création d’un client:
+Post a l’adresse http://<ip/adresse>:3007/clients des informations au format JSON dans le body
 
-## Running the app
+{
+    “name”: ”<your client name>”
+}
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+Récupération des clients:
 
-# production mode
-$ npm run start:prod
-```
+Get a l’adresse http://<ip/adresse>:3007/clients
 
-## Test
+Modification des clients:
 
-```bash
-# unit tests
-$ npm run test
+Put a l’adresse http://<ip/adresse>:3007/clients/<id client> des informations au format JSON dans le body
 
-# e2e tests
-$ npm run test:e2e
+contenant:
 
-# test coverage
-$ npm run test:cov
-```
+{
+    “name”: ”<your username>”
+}
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+Supression des clients:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+Get a l’adresse http://<ip/adresse>:3007/clients/<id client> 
 
-Nest is [MIT licensed](LICENSE).
+
+
+PRODUIT
+
+
+création d’un produit:
+Post a l’adresse http://<ip/adresse>:3005/product des informations au format JSON dans le body
+
+{
+    “name”: ”<your client name>”,
+    “quantity”: ”<your client quantity>”
+}
+
+
+
+Récupération des produits:
+
+Get a l’adresse http://<ip/adresse>:3005/product
+
+Modification des produits:
+
+Put a l’adresse http://<ip/adresse>:3005/product/<id client> des informations au format JSON dans le body
+
+contenant:
+
+
+{
+    “name”: ”<your client name>”,
+    “quantity”: ”<your client quantity>”
+}
+
+
+
+
+Supression des produits:
+
+
+Get a l’adresse http://<ip/adresse>:3005/product/<id produit> 
+
+
+
+
+
+
+
+
+COMMANDES
+
+
+création d’une commande:
+Post a l’adresse http://<ip/adresse>:3006/orders des informations au format JSON dans le body
+
+{
+    “user”:  ”<your client name>”,
+    “content”:  [
+          {
+               “product”: “<productId>”,
+               “quantity”: “<productId>”
+          }
+     ]
+}
+
+
+
+Récupération des commandes:
+
+Get a l’adresse http://<ip/adresse>:3006/orders
+
+Modification des commandes:
+
+Put a l’adresse http://<ip/adresse>:3006/orders/<id client> des informations au format JSON dans le body
+
+contenant:
+
+
+{
+    “user”: ”<your client name>”,
+    “content”: ”<your client quantity>”
+}
+
+
+
+
+Supression des commandes:
+
+
+Get a l’adresse http://<ip/adresse>:3006/orders/<id produit> 
